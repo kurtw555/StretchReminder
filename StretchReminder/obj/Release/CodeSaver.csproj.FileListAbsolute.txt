@@ -1,0 +1,11 @@
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\bin\Release\CodeSaver.exe.config
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\bin\Release\CodeSaver.exe
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\bin\Release\CodeSaver.pdb
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\obj\Release\CodeSaver.Form1.resources
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\obj\Release\CodeSaver.frmMessage.resources
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\obj\Release\CodeSaver.Properties.Resources.resources
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\obj\Release\CodeSaver.frmReminders.resources
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\obj\Release\CodeSaver.csproj.GenerateResource.Cache
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\obj\Release\CodeSaver.csproj.CoreCompileInputs.cache
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\obj\Release\CodeSaver.exe
+E:\Visual Studio 2017\DotNet\CodeSaver\ManageScreenSaver\obj\Release\CodeSaver.pdb
