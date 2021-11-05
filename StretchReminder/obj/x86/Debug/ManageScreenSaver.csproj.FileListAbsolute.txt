@@ -1,8 +1,0 @@
-G:\Visual Studio 2010\ManageScreenSaver\ManageScreenSaver\obj\x86\Debug\ManageScreenSaver.Form1.resources
-G:\Visual Studio 2010\ManageScreenSaver\ManageScreenSaver\obj\x86\Debug\ManageScreenSaver.Properties.Resources.resources
-G:\Visual Studio 2010\ManageScreenSaver\ManageScreenSaver\obj\x86\Debug\ManageScreenSaver.csproj.GenerateResource.Cache
-G:\Visual Studio 2010\ManageScreenSaver\ManageScreenSaver\bin\Debug\CodeSaver.exe
-G:\Visual Studio 2010\ManageScreenSaver\ManageScreenSaver\bin\Debug\CodeSaver.pdb
-G:\Visual Studio 2010\ManageScreenSaver\ManageScreenSaver\obj\x86\Debug\CodeSaver.exe
-G:\Visual Studio 2010\ManageScreenSaver\ManageScreenSaver\obj\x86\Debug\CodeSaver.pdb
-G:\Visual Studio 2010\ManageScreenSaver\ManageScreenSaver\obj\x86\Debug\ManageScreenSaver.csprojResolveAssemblyReference.cache
