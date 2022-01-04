@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+//using System.Web.Script.Serialization;
 
 namespace StretchReminder
 {
@@ -13,7 +15,7 @@ namespace StretchReminder
         public String  description { get; set; }
         public bool enabled { get; set; }
 
-        [ScriptIgnore]
+        [JsonIgnore]
         public DateTime lastreminder { get; set; }
 
         public Reminder()
