@@ -196,7 +196,7 @@ namespace StretchReminder
             try
             {
                 String file = "reminders.json";
-                String jsonReminders = null;
+                String? jsonReminders = null;
                 if (File.Exists(file))
                 {
                     using (StreamReader reader = new StreamReader(file))
