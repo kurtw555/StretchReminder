@@ -10,12 +10,19 @@ using System.Windows.Forms;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Media;
+using System.Runtime.InteropServices;
 
 namespace StretchReminder
 {
   
     public partial class Form1 : Form
     {
+        [DllImport("user32.dll")]
+        internal static extern uint SendInput(uint nInputs, [MarshalAs(UnmanagedType.LPArray), In] INPUT[] pInputs, int cbSize);
+
+        //[DllImport("user32.dll", SetLastError = true)]
+        //private static extern uint SendInput(uint nInputs, ref INPUT pInputs, int cbSize);
+
         private const string STATUS_ON = "ON";
         private const string STATUS_OFF = "OFF";
 
@@ -24,7 +31,9 @@ namespace StretchReminder
         private DateTime _lastCheckTime = DateTime.Now;
 
         frmMessage message = null;
-        bool _moveMouse = false;
+
+
+        private State _currentState = State.OFF;
 
         private enum State
         {
@@ -54,6 +63,7 @@ namespace StretchReminder
             _timer.Interval = 1000;
             _timer.Start();
             rdoButtonOff.Checked = true;
+            _currentState = State.OFF;
             LoadReminders();
         }        
 
@@ -64,7 +74,7 @@ namespace StretchReminder
             
         }
 
-        private void OnTimedEvent(Object myObject, EventArgs myEventArgs)               
+        private void OnTimedEvent(object? myObject, EventArgs myEventArgs)               
         {
             {
                 // Don't do anything if the form's handle hasn't been created  
@@ -72,6 +82,34 @@ namespace StretchReminder
                 if (!this.IsHandleCreated && !this.IsDisposed) return;
 
                 DateTime dt = DateTime.Now;
+
+
+                INPUT[] i = new INPUT[1];
+
+                i[0].type = 0;
+                i[0].U.mi.time = 0;
+                i[0].U.mi.dwFlags = MOUSEEVENTF.MOVE;
+                i[0].U.mi.dwExtraInfo = UIntPtr.Zero;
+                i[0].U.mi.dx = 0;
+                i[0].U.mi.dy = 0;
+
+                //var retval = SendInput(1, i, INPUT.Size);
+
+                int seconds = dt.Second;
+                uint retval = 0;
+                if (seconds % 60 == 0)
+                {
+                    if (_currentState == State.ON)
+                        retval = SendInput(1, i, INPUT.Size);
+                    //uint retval2 = retval;
+                }
+
+                //var retval = SendInput(1, ref inp, Marshal.SizeOf(inp));
+
+                //if (retval != 1)
+                //{
+                //    var errcode = Marshal.GetLastWin32Error();
+                //}
 
                 //int minute = dt.Minute;
                 //if (minute % 5 == 0)
@@ -150,10 +188,10 @@ namespace StretchReminder
         }
         private void ToggleState(State state)
         {
+            _currentState = state;
             EXECUTION_STATE prevState;
             if (state == State.ON)
-            {
-
+            {                
                 prevState = Global.SetThreadExecutionState(EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
                 btnToggleScreenSaver.Text = STATUS_ON;
                 btnToggleScreenSaver.BackColor = Color.Green;                
@@ -247,4 +285,83 @@ namespace StretchReminder
             Cursor.Clip = new Rectangle(this.Location, this.Size);
         }
     }
+
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct MOUSEINPUT
+    {
+        internal int dx;
+        internal int dy;
+        internal int mouseData;
+        internal MOUSEEVENTF dwFlags;
+        internal uint time;
+        internal UIntPtr dwExtraInfo;
+    }
+
+    internal struct KEYBDINPUT
+    {
+        internal short wVk;
+        internal short wScan;
+        internal int dwFlags;
+        internal int time;
+        internal UIntPtr dwExtraInfo;
+    }
+
+    struct HARDWAREINPUT
+    {
+        internal int uMsg;
+        internal short wParamL;
+        internal short wParamH;
+    }
+    
+
+      [Flags]
+    internal enum MOUSEEVENTF : uint
+    {
+        ABSOLUTE = 0x8000,
+        HWHEEL = 0x01000,
+        MOVE = 0x0001,
+        MOVE_NOCOALESCE = 0x2000,
+        LEFTDOWN = 0x0002,
+        LEFTUP = 0x0004,
+        RIGHTDOWN = 0x0008,
+        RIGHTUP = 0x0010,
+        MIDDLEDOWN = 0x0020,
+        MIDDLEUP = 0x0040,
+        VIRTUALDESK = 0x4000,
+        WHEEL = 0x0800,
+        XDOWN = 0x0080,
+        XUP = 0x0100
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    internal struct InputUnion
+    {
+        [FieldOffset(0)]
+        internal MOUSEINPUT mi;
+        [FieldOffset(0)]
+        internal KEYBDINPUT ki;
+        [FieldOffset(0)]
+        internal HARDWAREINPUT hi;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct INPUT
+    {
+        internal uint type;
+        internal InputUnion U;
+        internal static int Size
+        {
+            get { return Marshal.SizeOf(typeof(INPUT)); }
+        }
+    }
+    //internal struct INPUT
+    //{
+    //    public int TYPE;
+    //    public int dx;
+    //    public int dy;
+    //    public int mouseData;
+    //    public int dwFlags;
+    //    public int time;
+    //    public IntPtr dwExtraInfo;
+    //}
 }
