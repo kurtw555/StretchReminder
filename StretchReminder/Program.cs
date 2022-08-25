@@ -20,6 +20,8 @@ namespace StretchReminder
 
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
+
+            //Hello
         }
     }
 }
