@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.Json;
 //using System.Web.Script.Serialization;
 
 namespace StretchReminder
@@ -71,7 +72,27 @@ namespace StretchReminder
                 reminder.description = dr[1].ToString();
                 reminder.enabled = Convert.ToBoolean(dr[2]);
                 _reminders.Add(reminder);
-            }            
+            }
+
+            SaveReminders(); 
+        }
+
+        private void SaveReminders()
+        {
+            try
+            {
+                
+                string jsReminders = JsonSerializer.Serialize(_reminders);                
+
+                using (StreamWriter sw = new StreamWriter("reminders.json"))
+                {
+                    sw.Write(jsReminders);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

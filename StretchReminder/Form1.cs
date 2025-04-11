@@ -256,25 +256,6 @@ namespace StretchReminder
             }
         }
 
-        private void SaveReminders()
-        {
-            try
-            {
-                //JavaScriptSerializer jss = new JavaScriptSerializer();
-                string jsReminders = JsonSerializer.Serialize(_reminders);
-                //String jsReminders = jss.Serialize(_reminders);
-
-                using (StreamWriter sw = new StreamWriter("reminders.json"))
-                {
-                    sw.Write(jsReminders);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void MoveCursor()
         {
             // Set the Current cursor, move the cursor's Position,
