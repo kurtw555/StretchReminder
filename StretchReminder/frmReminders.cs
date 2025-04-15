@@ -15,14 +15,17 @@ namespace StretchReminder
     public partial class frmReminders : Form
     {
 
-        public IList<Reminder> _reminders { get; set; }
+        //public IList<Reminder> _reminders { get; set; }
+        //public Parameters Parameters{ get; set; }
 
-        public frmReminders(IList<Reminder> reminders)
+        //public frmReminders(IList<Reminder> reminders)
+        public frmReminders()
         {
             InitializeComponent();
             dataGridView1.AllowUserToAddRows = true;
             dataGridView1.AllowUserToDeleteRows = true;
-            _reminders = reminders;
+            //_reminders = reminders;
+            //Parameters = parameters;
         }
 
         private void Reminders_Load(object sender, EventArgs e)
@@ -34,14 +37,14 @@ namespace StretchReminder
                 dt.Columns.Add("Description", typeof(String));
                 dt.Columns.Add("Enabled", typeof(bool));
 
-                if (_reminders != null)
+                if (Global.parameters.Reminders != null)
                 {
-                    for (int i = 0; i < _reminders.Count; i++)
+                    for (int i = 0; i < Global.parameters.Reminders.Count; i++)
                     {
                         DataRow dr = dt.NewRow();
-                        dr[0] = _reminders[i].interval;
-                        dr[1] = _reminders[i].description;                        
-                        dr[2] = _reminders[i].enabled;
+                        dr[0] = Global.parameters.Reminders[i].interval;
+                        dr[1] = Global.parameters.Reminders[i].description;                        
+                        dr[2] = Global.parameters.Reminders[i].enabled;
                         dt.Rows.Add(dr);
                     }
                 }
@@ -63,7 +66,7 @@ namespace StretchReminder
         private void btnSave_Click(object sender, EventArgs e)
         {
             DataTable dt = dataGridView1.DataSource as DataTable;
-            _reminders = new Reminders();
+            //Parameters.Reminders = new Reminders();
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 Reminder reminder = new Reminder();
@@ -71,28 +74,28 @@ namespace StretchReminder
                 reminder.interval = Convert.ToInt32(dr[0]);
                 reminder.description = dr[1].ToString();
                 reminder.enabled = Convert.ToBoolean(dr[2]);
-                _reminders.Add(reminder);
+                Global.parameters.Reminders.Add(reminder);
             }
 
-            SaveReminders(); 
+            //SaveReminders(); 
         }
 
-        private void SaveReminders()
-        {
-            try
-            {
+        //private void SaveReminders()
+        //{
+        //    try
+        //    {
                 
-                string jsReminders = JsonSerializer.Serialize(_reminders);                
+        //        string jsReminders = JsonSerializer.Serialize(_reminders);                
 
-                using (StreamWriter sw = new StreamWriter("reminders.json"))
-                {
-                    sw.Write(jsReminders);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        //        using (StreamWriter sw = new StreamWriter("reminders.json"))
+        //        {
+        //            sw.Write(jsReminders);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
     }
 }

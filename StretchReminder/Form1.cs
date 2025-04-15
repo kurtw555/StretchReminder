@@ -11,10 +11,11 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Media;
 using System.Runtime.InteropServices;
+using System.Globalization;
 
 namespace StretchReminder
 {
-  
+
     public partial class Form1 : Form
     {
         [DllImport("user32.dll")]
@@ -26,7 +27,8 @@ namespace StretchReminder
         private const string STATUS_ON = "ON";
         private const string STATUS_OFF = "OFF";
 
-        IList<Reminder> _reminders = null;
+        //IList<Reminder> _reminders = null;
+        //Parameters _parameters = null;
 
         private DateTime _lastCheckTime = DateTime.Now;
 
@@ -41,7 +43,7 @@ namespace StretchReminder
             OFF
         };
 
-        private System.Windows.Forms.Timer _timer;         
+        private System.Windows.Forms.Timer _timer;
 
         public Form1()
         {
@@ -56,6 +58,8 @@ namespace StretchReminder
             int day = DateTime.Now.Day;
 
             dateTimePicker1.Value = new DateTime(year, month, day, 18, 0, 0);
+            timePicker.Format = DateTimePickerFormat.Time;
+            timePicker.ShowUpDown = true;
 
             _timer = new System.Windows.Forms.Timer();
             // Hook up the Elapsed event for the timer. 
@@ -64,17 +68,21 @@ namespace StretchReminder
             _timer.Start();
             rdoButtonOff.Checked = true;
             _currentState = State.OFF;
-            LoadReminders();
-        }        
+            //Global.parameters = new Parameters();
+            Global.LoadParameters();
+            DateTime dateTime = DateTime.ParseExact(Global.parameters.StopTime, "h:mm tt", CultureInfo.InvariantCulture);
+            timePicker.Value = dateTime;
+        }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             EXECUTION_STATE prevState = Global.SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
             _timer.Dispose();
-            
+            Global.SaveParameters();
+
         }
 
-        private void OnTimedEvent(object? myObject, EventArgs myEventArgs)               
+        private void OnTimedEvent(object? myObject, EventArgs myEventArgs)
         {
             {
                 // Don't do anything if the form's handle hasn't been created  
@@ -146,7 +154,8 @@ namespace StretchReminder
                     if (dt.Subtract(_lastCheckTime).TotalMinutes > 10)
                     {
 
-                        if (dt.Hour >= 18)
+                        //if (dt.Hour >= 18)
+                        if (dt.Hour >= timePicker.Value.Hour && dt.Minute >= timePicker.Value.Minute)
                         {
                             if (!rdoButtonOff.Checked)
                             {
@@ -158,9 +167,11 @@ namespace StretchReminder
                     }
                 }
 
-                if (_reminders != null)
+                //if (_reminders != null)
+                if (Global.parameters != null && Global.parameters.Reminders != null)
                 {
-                    foreach (Reminder remind in _reminders)
+                    //foreach (Reminder remind in _reminders)
+                    foreach (Reminder remind in Global.parameters.Reminders)
                     {
                         Console.WriteLine(remind.description + "  Min: " + dt.Subtract(remind.lastreminder).TotalMinutes);
                         if (!remind.enabled)
@@ -191,10 +202,10 @@ namespace StretchReminder
             _currentState = state;
             EXECUTION_STATE prevState;
             if (state == State.ON)
-            {                
+            {
                 prevState = Global.SetThreadExecutionState(EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_CONTINUOUS | EXECUTION_STATE.ES_SYSTEM_REQUIRED);
                 btnToggleScreenSaver.Text = STATUS_ON;
-                btnToggleScreenSaver.BackColor = Color.Green;                
+                btnToggleScreenSaver.BackColor = Color.Green;
                 //_timer.Enabled = true;
             }
             else if (state == State.OFF)
@@ -221,40 +232,18 @@ namespace StretchReminder
 
         private void btnSetReminders_Click(object sender, EventArgs e)
         {
-            frmReminders frmRmnders = new frmReminders(_reminders);
+            frmReminders frmRmnders = new frmReminders();
             frmRmnders.StartPosition = FormStartPosition.Manual;
             frmRmnders.Location = this.Location;
             DialogResult dr = frmRmnders.ShowDialog();
             if (dr == DialogResult.OK)
-                _reminders = frmRmnders._reminders;
-        }
-
-        private void LoadReminders()
-        {
-            try
             {
-                String file = "reminders.json";
-                String? jsonReminders = null;
-                if (File.Exists(file))
-                {
-                    using (StreamReader reader = new StreamReader(file))
-                    {
-                        jsonReminders = reader.ReadToEnd();
-                    }
-                }
-
-                //reminders = null;
-                if (!String.IsNullOrWhiteSpace(jsonReminders))
-                {
-                    //_reminders = new JavaScriptSerializer().Deserialize<IList<Reminder>>(jsonReminders);
-                    _reminders = JsonSerializer.Deserialize<IList<Reminder>>(jsonReminders);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                //Global.parameters.Reminders = frmRmnders.Parameters.Reminders;
+                //Global.parameters.StopTime = timePicker.Value.ToShortTimeString();
+                Global.SaveParameters();
             }
         }
+
 
         private void MoveCursor()
         {
@@ -265,7 +254,14 @@ namespace StretchReminder
             Cursor.Position = new Point(Cursor.Position.X - 50, Cursor.Position.Y - 50);
             Cursor.Clip = new Rectangle(this.Location, this.Size);
         }
+
+        private void timePicker_ValueChanged(object sender, EventArgs e)
+        {
+            Global.parameters.StopTime = timePicker.Value.ToShortTimeString();
+        }
     }
+
+
 
     [StructLayout(LayoutKind.Sequential)]
     internal struct MOUSEINPUT

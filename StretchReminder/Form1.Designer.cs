@@ -29,128 +29,155 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.btnToggleScreenSaver = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.rdoButtonOn = new System.Windows.Forms.RadioButton();
-            this.rdoButtonOff = new System.Windows.Forms.RadioButton();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
-            this.lblTime = new System.Windows.Forms.Label();
-            this.btnSetReminders = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.lblCutOff = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            btnToggleScreenSaver = new Button();
+            label1 = new Label();
+            rdoButtonOn = new RadioButton();
+            rdoButtonOff = new RadioButton();
+            monthCalendar1 = new MonthCalendar();
+            lblTime = new Label();
+            btnSetReminders = new Button();
+            dateTimePicker1 = new DateTimePicker();
+            lblCutOff = new Label();
+            lblStop = new Label();
+            timePicker = new DateTimePicker();
+            SuspendLayout();
             // 
             // btnToggleScreenSaver
             // 
-            this.btnToggleScreenSaver.BackColor = System.Drawing.Color.Red;
-            this.btnToggleScreenSaver.Location = new System.Drawing.Point(92, 35);
-            this.btnToggleScreenSaver.Name = "btnToggleScreenSaver";
-            this.btnToggleScreenSaver.Size = new System.Drawing.Size(91, 55);
-            this.btnToggleScreenSaver.TabIndex = 0;
-            this.btnToggleScreenSaver.Text = "OFF";
-            this.btnToggleScreenSaver.UseVisualStyleBackColor = false;
+            btnToggleScreenSaver.BackColor = Color.Red;
+            btnToggleScreenSaver.Location = new Point(80, 26);
+            btnToggleScreenSaver.Margin = new Padding(3, 2, 3, 2);
+            btnToggleScreenSaver.Name = "btnToggleScreenSaver";
+            btnToggleScreenSaver.Size = new Size(80, 41);
+            btnToggleScreenSaver.TabIndex = 0;
+            btnToggleScreenSaver.Text = "OFF";
+            btnToggleScreenSaver.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(167, 20);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Stretch Reminder Status";
+            label1.AutoSize = true;
+            label1.Location = new Point(49, 8);
+            label1.Name = "label1";
+            label1.Size = new Size(133, 15);
+            label1.TabIndex = 1;
+            label1.Text = "Stretch Reminder Status";
             // 
             // rdoButtonOn
             // 
-            this.rdoButtonOn.AutoSize = true;
-            this.rdoButtonOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdoButtonOn.Location = new System.Drawing.Point(40, 37);
-            this.rdoButtonOn.Name = "rdoButtonOn";
-            this.rdoButtonOn.Size = new System.Drawing.Size(38, 16);
-            this.rdoButtonOn.TabIndex = 2;
-            this.rdoButtonOn.TabStop = true;
-            this.rdoButtonOn.Text = "ON";
-            this.rdoButtonOn.UseVisualStyleBackColor = true;
-            this.rdoButtonOn.CheckedChanged += new System.EventHandler(this.rdoButtonOn_CheckedChanged);
+            rdoButtonOn.AutoSize = true;
+            rdoButtonOn.Font = new Font("Microsoft Sans Serif", 4.8F);
+            rdoButtonOn.Location = new Point(35, 28);
+            rdoButtonOn.Margin = new Padding(3, 2, 3, 2);
+            rdoButtonOn.Name = "rdoButtonOn";
+            rdoButtonOn.Size = new Size(32, 13);
+            rdoButtonOn.TabIndex = 2;
+            rdoButtonOn.TabStop = true;
+            rdoButtonOn.Text = "ON";
+            rdoButtonOn.UseVisualStyleBackColor = true;
+            rdoButtonOn.CheckedChanged += rdoButtonOn_CheckedChanged;
             // 
             // rdoButtonOff
             // 
-            this.rdoButtonOff.AutoSize = true;
-            this.rdoButtonOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 4.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.rdoButtonOff.Location = new System.Drawing.Point(40, 63);
-            this.rdoButtonOff.Name = "rdoButtonOff";
-            this.rdoButtonOff.Size = new System.Drawing.Size(42, 16);
-            this.rdoButtonOff.TabIndex = 3;
-            this.rdoButtonOff.TabStop = true;
-            this.rdoButtonOff.Text = "OFF";
-            this.rdoButtonOff.UseVisualStyleBackColor = true;
-            this.rdoButtonOff.CheckedChanged += new System.EventHandler(this.rdoButtonOff_CheckedChanged);
+            rdoButtonOff.AutoSize = true;
+            rdoButtonOff.Font = new Font("Microsoft Sans Serif", 4.8F);
+            rdoButtonOff.Location = new Point(35, 47);
+            rdoButtonOff.Margin = new Padding(3, 2, 3, 2);
+            rdoButtonOff.Name = "rdoButtonOff";
+            rdoButtonOff.Size = new Size(35, 13);
+            rdoButtonOff.TabIndex = 3;
+            rdoButtonOff.TabStop = true;
+            rdoButtonOff.Text = "OFF";
+            rdoButtonOff.UseVisualStyleBackColor = true;
+            rdoButtonOff.CheckedChanged += rdoButtonOff_CheckedChanged;
             // 
             // monthCalendar1
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(17, 149);
-            this.monthCalendar1.Margin = new System.Windows.Forms.Padding(9, 11, 9, 11);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 4;
+            monthCalendar1.Location = new Point(15, 135);
+            monthCalendar1.Margin = new Padding(8);
+            monthCalendar1.Name = "monthCalendar1";
+            monthCalendar1.TabIndex = 4;
             // 
             // lblTime
             // 
-            this.lblTime.AutoSize = true;
-            this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblTime.Location = new System.Drawing.Point(189, 46);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(45, 18);
-            this.lblTime.TabIndex = 6;
-            this.lblTime.Text = "Time:";
+            lblTime.AutoSize = true;
+            lblTime.Font = new Font("Microsoft Sans Serif", 9F);
+            lblTime.Location = new Point(165, 34);
+            lblTime.Name = "lblTime";
+            lblTime.Size = new Size(38, 15);
+            lblTime.TabIndex = 6;
+            lblTime.Text = "Time:";
             // 
             // btnSetReminders
             // 
-            this.btnSetReminders.Location = new System.Drawing.Point(92, 396);
-            this.btnSetReminders.Name = "btnSetReminders";
-            this.btnSetReminders.Size = new System.Drawing.Size(121, 29);
-            this.btnSetReminders.TabIndex = 7;
-            this.btnSetReminders.Text = "Set Reminders";
-            this.btnSetReminders.UseVisualStyleBackColor = true;
-            this.btnSetReminders.Click += new System.EventHandler(this.btnSetReminders_Click);
+            btnSetReminders.Location = new Point(80, 306);
+            btnSetReminders.Margin = new Padding(3, 2, 3, 2);
+            btnSetReminders.Name = "btnSetReminders";
+            btnSetReminders.Size = new Size(106, 22);
+            btnSetReminders.TabIndex = 7;
+            btnSetReminders.Text = "Set Reminders";
+            btnSetReminders.UseVisualStyleBackColor = true;
+            btnSetReminders.Click += btnSetReminders_Click;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.dateTimePicker1.Location = new System.Drawing.Point(65, 101);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(229, 21);
-            this.dateTimePicker1.TabIndex = 8;
+            dateTimePicker1.Font = new Font("Microsoft Sans Serif", 7.2F);
+            dateTimePicker1.Location = new Point(57, 101);
+            dateTimePicker1.Margin = new Padding(3, 2, 3, 2);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(201, 18);
+            dateTimePicker1.TabIndex = 8;
             // 
             // lblCutOff
             // 
-            this.lblCutOff.AutoSize = true;
-            this.lblCutOff.Location = new System.Drawing.Point(5, 103);
-            this.lblCutOff.Name = "lblCutOff";
-            this.lblCutOff.Size = new System.Drawing.Size(57, 20);
-            this.lblCutOff.TabIndex = 9;
-            this.lblCutOff.Text = "Cut off:";
+            lblCutOff.AutoSize = true;
+            lblCutOff.Location = new Point(4, 102);
+            lblCutOff.Name = "lblCutOff";
+            lblCutOff.Size = new Size(47, 15);
+            lblCutOff.TabIndex = 9;
+            lblCutOff.Text = "Cut off:";
+            // 
+            // lblStop
+            // 
+            lblStop.AutoSize = true;
+            lblStop.Location = new Point(8, 77);
+            lblStop.Name = "lblStop";
+            lblStop.Size = new Size(34, 15);
+            lblStop.TabIndex = 10;
+            lblStop.Text = "Stop:";
+            // 
+            // timePicker
+            // 
+            timePicker.Location = new Point(58, 73);
+            timePicker.Name = "timePicker";
+            timePicker.Size = new Size(200, 23);
+            timePicker.TabIndex = 11;
+            timePicker.ValueChanged += timePicker_ValueChanged;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 466);
-            this.Controls.Add(this.lblCutOff);
-            this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.btnSetReminders);
-            this.Controls.Add(this.lblTime);
-            this.Controls.Add(this.monthCalendar1);
-            this.Controls.Add(this.rdoButtonOff);
-            this.Controls.Add(this.rdoButtonOn);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnToggleScreenSaver);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
-            this.ShowInTaskbar = false;
-            this.Text = "Stretch Reminder";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(291, 350);
+            Controls.Add(timePicker);
+            Controls.Add(lblStop);
+            Controls.Add(lblCutOff);
+            Controls.Add(dateTimePicker1);
+            Controls.Add(btnSetReminders);
+            Controls.Add(lblTime);
+            Controls.Add(monthCalendar1);
+            Controls.Add(rdoButtonOff);
+            Controls.Add(rdoButtonOn);
+            Controls.Add(label1);
+            Controls.Add(btnToggleScreenSaver);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "Form1";
+            ShowInTaskbar = false;
+            Text = "Stretch Reminder";
+            FormClosed += Form1_FormClosed;
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -165,6 +192,8 @@
         private System.Windows.Forms.Button btnSetReminders;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label lblCutOff;
+        private Label lblStop;
+        private DateTimePicker timePicker;
     }
 }
 

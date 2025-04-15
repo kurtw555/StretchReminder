@@ -12,7 +12,7 @@ namespace StretchReminder
     {
         //# of minutes
         public int interval { get; set; }
-        public String  description { get; set; }
+        public String description { get; set; }
         public bool enabled { get; set; }
 
         [JsonIgnore]
@@ -33,5 +33,17 @@ namespace StretchReminder
         }
     }
 
+    public class Parameters
+    {
+        private string _stopTime = "5:00 PM";
+        public Reminders Reminders { get; set; }
+        public string StopTime { get { return _stopTime; } set { _stopTime = value; } }
+        public Parameters()
+        {
+            Reminders = new Reminders();
+        }
 
+    }
 }
+                
+    
